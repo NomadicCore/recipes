@@ -1,0 +1,80 @@
+# SPDX-FileCopyrightText: 2026 AerynOS Developers
+# SPDX-License-Identifier: MPL-2.0
+
+name: 🗑️ Package Removal Request
+description: Request a package to be removed from AerynOS
+title: "[Removal Request] <package name>"
+labels: ["package: removal"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Package Removal Request
+
+        Package removal is a serious action. Provide detailed justification for why this software should be removed.
+
+  - type: checkboxes
+    id: search
+    attributes:
+      label: Existing package request?
+      description: Before requesting a removal, ensure no existing request for this package exists by searching our [open issues](https://github.com/AerynOS/recipes/issues?q=is%3Aissue+is%3Aopen+label%3A"package%3A+removal").
+      options:
+        - label: I have searched open package request reports for this package
+          required: true
+
+  - type: input
+    id: package_name
+    attributes:
+      label: Package Name
+      description: The exact name of the package in the AerynOS repository.
+      placeholder: e.g. legacy-tool, deprecated-library
+    validations:
+      required: true
+
+  - type: dropdown
+    id: removal_reason
+    attributes:
+      label: Primary Reason for Removal
+      multiple: true
+      options:
+        - Abandoned/No longer maintained upstream
+        - Security vulnerability (unpatched)
+        - Proprietary license change
+        - Duplicate functionality (exists elsewhere)
+        - Violates [Package Addition Policy](.PACKAGING_POLICY.md)!
+        - Low usage / niche software
+        - Blocking migration/upgrades
+        - Other
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: Detailed Justification
+      description: Explain why this package should be removed. Include links to evidence where possible.
+      placeholder: e.g. "Upstream stopped maintaining this in 2023, last release was version 0.9.1..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies_affected
+    attributes:
+      label: Known Dependencies
+      description: Are you aware of other packages or users that depend on this? Include information if known.
+      placeholder: e.g. "I believe pkg-x depends on this; users who install feature-y may be affected..."
+
+  - type: checkboxes
+    id: urgency
+    attributes:
+      label: Urgency
+      options:
+        - label: This is urgent (security risk or actively harmful software)
+        - label: Normal priority (policy violation or abandonment)
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+
+        Removal decisions are made by the AerynOS Staff after evaluating the impact on existing users. Urgent requests involving security risks will be prioritised. Please note that at this stage, AerynOS tooling prohibits fully removing packages. Packages flagged for removals will be added to the [removals](.removals.md)! file and be removed once the prerequisite tooling development has been completed.

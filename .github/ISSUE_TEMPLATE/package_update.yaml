@@ -1,0 +1,91 @@
+# SPDX-FileCopyrightText: 2025 AerynOS Developers
+# SPDX-License-Identifier: MPL-2.0
+
+name: 🔁 Package Update Request
+description: Request an update to an existing package
+title: "[Update Request] <package name>: current → desired version"
+labels: ["package: update"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Package Update Request
+
+        Please note: If you are a packager and have already prepared an update, submit a **Pull Request** instead of opening an issue.
+
+  - type: checkboxes
+    id: search
+    attributes:
+      label: Existing package request?
+      description: Before opening a new issue, ensure no existing request for this package exists by searching our [open issues](https://github.com/AerynOS/recipes/issues?q=is%3Aissue+is%3Aopen+label%3A"package%3A+update").
+      options:
+        - label: I have searched open package request reports for this package
+          required: true
+
+  - type: input
+    id: package_name
+    attributes:
+      label: Package Name
+      description: The exact name of the package in the AerynOS repository.
+      placeholder: e.g. firefox, wf-recorder, zulip-desktop
+    validations:
+      required: true
+
+  - type: input
+    id: current_version
+    attributes:
+      label: Current Version
+      description: What version is currently in AerynOS?
+      placeholder: e.g. 1.2.3
+    validations:
+      required: true
+
+  - type: input
+    id: desired_version
+    attributes:
+      label: Desired Version
+      description: What version do you want to update to?
+      placeholder: e.g. 1.4.0
+    validations:
+      required: true
+
+  - type: input
+    id: upstream_release_url
+    attributes:
+      label: Upstream Release Link
+      description: Link to the upstream release announcement, changelog, or release page.
+      placeholder: e.g. https://github.com/org/repo/releases/tag/v1.4.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: change_summary
+    attributes:
+      label: Summary of Changes
+      description: Briefly summarise the key changes in this release. Link to changelog if available.
+      placeholder: e.g. "Bug fixes, improved performance, added support for X..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: security_relevant
+    attributes:
+      label: Security Implications
+      options:
+        - label: This update includes security fixes (please provide CVE references if known)
+        - label: This is a security-critical package (e.g., browser, crypto library, network service)
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Information (Optional)
+      description: Any build changes, dependency updates, or other notes relevant to the update.
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+
+        Updates are prioritised based on security impact, user demand, and packager availability. You may be asked to prepare a recipe yourself if capacity is limited. Please note that there may be a delay in package updates whilst the project is currently in the alpha development stage.

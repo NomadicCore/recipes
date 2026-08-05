@@ -1,0 +1,130 @@
+# SPDX-FileCopyrightText: 2025 AerynOS Developers
+# SPDX-License-Identifier: MPL-2.0
+
+name: 📦 Package Request
+description: Request a new package to be added to AerynOS
+title: "[Package Request] <package name>"
+labels: ["package: request"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thank you for your package request!
+
+        Before you continue, please read the [Package Inclusion Policy](.PACKAGING_POLICY.md)! to understand how we evaluate packages.
+
+  - type: checkboxes
+    id: search
+    attributes:
+      label: Existing package request?
+      description: Before opening a new issue, ensure no existing request for this package exists by searching our [open issues](https://github.com/AerynOS/recipes/issues?q=is%3Aissue+is%3Aopen+label%3A"package%3A+request").
+      options:
+        - label: I have searched open package request reports for this package
+          required: true
+
+  - type: input
+    id: package_name
+    attributes:
+      label: Package Name
+      description: What is the name of the software? Use the official upstream name where possible.
+      placeholder: e.g. gimp, nodejs, telegram-desktop
+    validations:
+      required: true
+
+  - type: input
+    id: upstream_url
+    attributes:
+      label: Upstream URL
+      description: Link to the official project homepage, source repository, or download page.
+      placeholder: e.g. https://www.gimp.org, https://github.com/org/repo
+    validations:
+      required: true
+
+  - type: input
+    id: upstream_release_url
+    attributes:
+      label: Upstream Release Link
+      description: Link to the upstream release announcement, changelog, or release page.
+      placeholder: e.g. https://github.com/org/repo/releases/tag/v1.4.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: license
+    attributes:
+      label: License
+      description: Select the the license that the package uses. Use identifiers from the [SPX License List](https://spdx.org/licenses/). The most common options have been offered in a dropdown menu, choose "Other" and specify in the description if not one of these.
+      multiple: false
+      options:
+        - GPL-2.0
+        - GPL-3.0
+        - MIT
+        - Apache-2.0
+        - BSD-3-Clause
+        - BSD-2-Clause
+        - LGPL
+        - MPL
+        - ISC
+        - Unknown
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Brief Description
+      description: In 1-2 sentences, describe what this software does.
+      placeholder: e.g. "GNU Image Manipulation Program - a raster graphics editor for image authoring and manipulation"
+    validations:
+      required: true
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: Why Should This Be Included?
+      description: Explain the value this brings to AerynOS users. Have multiple people requested it? Mention that here.
+      placeholder: e.g. "This is widely used for photo editing and is missing from the default repositories..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: policy_acknowledgement
+    attributes:
+      label: Policy Confirmation
+      description: Confirm that you've reviewed the Package Addition Policy.
+      options:
+        - label: I have read the [Package Addition Policy](.PACKAGING_POLICY.md)! and believe this package meets the criteria.
+          required: true
+        - label: I have searched for existing requests and confirmed this hasn't been requested before.
+          required: true
+
+  - type: checkboxes
+    id: volunteer_maintainer
+    attributes:
+      label: Are You Willing to Help Package This?
+      description: |
+        Checking this indicates you're willing to:
+        - Create the initial recipe
+        - Assist with troubleshooting during review
+        - Optionally maintain the package going forward
+
+        This is **optional** but helps the Team prioritise work.
+      options:
+        - label: I'm willing to help package/maintain this software.
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Information (Optional)
+      description: Any other details that might help us evaluate this request (e.g., known build requirements, important dependencies, special considerations).
+      placeholder: e.g. "This package requires GTK3 and libjpeg-turbo as dependencies..."
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+
+        **Next Steps:** A member of the Team will review your request against the Package Addition Policy and respond within the coming days. Approved requests will be labelled `package: approved` and made available for packagers to implement. Please note that we are currently limiting the repo size during the development stages of the project.
